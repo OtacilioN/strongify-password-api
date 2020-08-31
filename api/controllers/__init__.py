@@ -1,1 +1,1 @@
-from .controller import start, strongify_password
+from .controller import home_page, strongify_password
