@@ -1,11 +1,15 @@
 from api import app, jsonify, request
 from api.service import strongify_service
 
+@app.route("/", methods=['GET'])
+def home_page():
+    return "<h1>Enter in this url to instructions about how to use this api https://github.com/OtacilioN/strongify-password-api<h1/>"
+
 
 @app.route("/api/strongify-password", methods=['POST'])
 def strongify_password():
     """
-        This route will recive a password and return a strongify password
+        This route will recive a password and return five password options
     """
 
     params = request.json
