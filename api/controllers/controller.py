@@ -1,20 +1,24 @@
 from api import app, jsonify, request
-
-
-@app.route("/", methods=['GET'])
-def start():
-    return "Foi"
+from api.service import strongify_service
 
 
 @app.route("/api/strongify-password", methods=['POST'])
 def strongify_password():
     """
-        This route will return all products
+        This route will recive a password and return a strongify password
     """
 
-    password = request.args.get("password")
+    params = request.json
+    password = params["password"]
 
     try:
-        return jsonify({"status": "success", "data": password})
+        password_array = []
+
+        for i in range(0, 5):
+            new_password = strongify_service.strongify_password(
+                password=password)
+            password_array.append(new_password)
+        return jsonify({"msg": "success", "data": password_array})
+
     except Exception as error:
-        return jsonify({"status": "error", "error": str(error)})
+        return jsonify({"msg": "error", "data": str(error)})
